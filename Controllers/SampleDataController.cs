@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace core_react_template.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class SampleDataController : Controller
     {
         private static string[] Summaries = new[]
@@ -15,7 +15,7 @@ namespace core_react_template.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
             var rng = new Random();
@@ -27,7 +27,7 @@ namespace core_react_template.Controllers
             });
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public async Task<string> DatabaseTest()
         {
             var doc = await DocumentDBRepo<Item>.CreateItemAsync(new Item
@@ -41,13 +41,13 @@ namespace core_react_template.Controllers
             return "Works!";
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public Task<IEnumerable<Item>> GetItems()
         {
             return DocumentDBRepo<Item>.GetItemsAsync();
         }
 
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<IEnumerable<Item>> NewItem([FromBody]Item item)
         {
             var doc = await DocumentDBRepo<Item>.CreateItemAsync(item);

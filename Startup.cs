@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace core_react_template
 {
@@ -26,10 +27,12 @@ namespace core_react_template
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.Configure<AppSettings>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<AppSettings> options)
         {
             if (env.IsDevelopment())
             {
@@ -61,7 +64,9 @@ namespace core_react_template
             });
 
             // DB init
-            //DocumentDBRepo<Item>.Initialize();
+            DocumentDBRepo<Item>.Endpoint = options.Value.CosmosDb.Endpoint;
+            DocumentDBRepo<Item>.Key = options.Value.CosmosDb.Key;
+            DocumentDBRepo<Item>.Initialize();
         }
     }
 }

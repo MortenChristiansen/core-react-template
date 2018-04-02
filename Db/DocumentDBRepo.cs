@@ -11,8 +11,8 @@ namespace core_react_template
 {
     public static class DocumentDBRepo<T> where T : class
     {       
-        private static readonly string Endpoint = "https://localhost:8081";
-        private static readonly string Key = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
+        public static string Endpoint;
+        public static string Key;
         private static readonly string DatabaseId = "ToDoList";
         private static readonly string CollectionId = "Items";
         private static DocumentClient client;
